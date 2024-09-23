@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Attendance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Smart Attendance System</h1>
+
+    <div class="video-feed">
+        <img id="video" src="{{ url_for('video_feed') }}" alt="Video Feed">
+    </div>
+
+    <h2>Attendance Status</h2>
+    <div id="attendance-list">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-table-body">
+                <!-- Attendance entries will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function fetchAttendance() {
+            $.getJSON("/attendance", function(data) {
+                let tableBody = $('#attendance-table-body');
+                tableBody.empty();
+                data.forEach(function(row, index) {
+                    if (index !== 0) { // Skip header
+                        let newRow = `<tr><td>${row[0]}</td><td>${row[1]}</td><td>${row[2]}</td></tr>`;
+                        tableBody.append(newRow);
+                    }
+                });
+            });
+        }
+
+        // Fetch attendance data every 5 seconds
+        setInterval(fetchAttendance, 5000);
+
+        // Initial fetch
+        fetchAttendance();
+    </script>
+</body>
+</html>

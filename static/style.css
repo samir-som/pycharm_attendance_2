@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.video-feed {
+    margin: 20px;
+}
+
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 50%;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
